@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Laravel</title>
+        <title>Demo Shop</title>
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
@@ -58,10 +58,9 @@
                 text-transform: uppercase;
             }
 
-            .m-b-md {
-                margin-bottom: 30px;
-            }
         </style>
+
+        <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     </head>
     <body>
         <div class="flex-center position-ref full-height">
@@ -79,9 +78,11 @@
                 </div>
             @endif
 
+            
             <div class="content">
-                <div class="title m-b-md">
-                    Laravel
+                <h1 class=""></h1>
+                <div class="title text-success m-b-md">
+                Hello Shop
                 </div>
 
                 <div class="links">
@@ -96,5 +97,7 @@
                 </div>
             </div>
         </div>
+
+        <script src="{{asset('js/app.js')}}"></script>
     </body>
 </html>
