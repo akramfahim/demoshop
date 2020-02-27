@@ -5,18 +5,63 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">Dashboard</div>
+                <div class="card-header">
+                  Dashboard
+                  <span class="float-right">
+                            <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
+                                Add New Category
+                            </button>
+                  </span>
+                </div>
 
                 <div class="card-body">
-                    @if (session('status'))
+                    @if($errors->any())
+                        <div class="alert alert-danger" role="alert">
+                          
+                            @foreach ($errors->all() as $error)
+                                  {{ $error }}
+                            @endforeach
+                          
+                        </div>
+                    @endif
+                    @if (session('msg') == 'success')
                         <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
+                            Hurray! Category Created Successfully
+                        </div>
+                    @elseif(session('msg') == 'error')
+                        <div class="alert alert-danger" role="alert">
+                            OOPPS! something Went Wrong
                         </div>
                     @endif
 
-                    You are logged in!
+                    <h2>Category List</h2>
 
-                    
+                    <table class="table">
+                      <thead class="thead-dark">
+                        <tr>
+                          <th scope="col">#</th>
+                          <th scope="col">Category Name</th>
+                          <th scope="col">Action</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+
+                        @foreach($categories as $category)
+
+                        <tr>
+                          <th scope="row">1</th>
+                          <td>{{$category->categoryName}}</td>
+                          <td>
+                            <button class="btn btn-sm btn-info">Edit</button>
+                            <button class="btn btn-sm btn-danger">Delete</button>
+                          </td>
+                        </tr>
+
+                        @endforeach
+                        
+                      </tbody>
+                    </table>
+          
                 </div>
             </div>
         </div>
@@ -35,8 +80,8 @@
       </div>
       <div class="modal-body bg-dark text-light">
 
-
-        <form action="category" mehtod="POST">
+        
+        <form action="/category" method="post">
             @csrf
             <div class="form-group">
                 <label for="categoryName">Category Name</label>

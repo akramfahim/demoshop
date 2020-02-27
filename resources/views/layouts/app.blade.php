@@ -33,11 +33,6 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
-                        <li>
-                            <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
-                                Add New Category
-                            </button>
-                        </li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->

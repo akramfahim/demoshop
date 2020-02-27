@@ -14,7 +14,9 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        //
+        $categories = Category::all();
+
+        return home('home')->with(['categories',$categories]);
     }
 
     /**
@@ -35,7 +37,23 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        print_r($request->all());
+        $categoryName = $request->validate([
+            'categoryName' => 'required | unique:categories'
+        ]);
+        $success = Category::create($categoryName);
+        
+        
+
+        if($success){
+            return redirect('home')->with('msg','success');
+        }else{
+            return redirect('home')->with('msg','error');
+        }
+
+        // $category = new Category();
+        // $category->categoryName = $request->categoryName;
+        // $success = $category->save();
+
     }
 
     /**
