@@ -6,10 +6,8 @@
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header">
-                  Dashboard
-                  <span class="float-right">
-                    <a href="category">CategoryList</a>
-                  </span>
+                  <h2>Category Edit</h2>
+                  
                 </div>
 
                 <div class="card-body">
@@ -22,28 +20,33 @@
                           
                         </div>
                     @endif
-                    @if (session('msg') == 'success')
+                    @if (session('successMessage'))
                         <div class="alert alert-success" role="alert">
-                            Hurray! Category Created Successfully
+                            {{session('successMessage')}}
                         </div>
-                    @elseif(session('msg') == 'error')
+                    @elseif(session('errorMessage'))
                         <div class="alert alert-danger" role="alert">
-                            OOPPS! something Went Wrong
+                            {{session('errorMessage')}}
                         </div>
                     @endif
 
-                    <h2>Category List</h2>
+                    <form action="/category/{{$category[0]->id}}" method="post">
+                        @method('PUT')
+                        @csrf
+                        <div class="form-group">
+                            <label for="categoryName"><h3>Category Name</h3></label>
+                            <input type="text" name="categoryName" class="form-control mb-1" id="categoryName" value="{{$category[0]->categoryName}}">
+                        </div>
 
-                    
-                        
-                      </tbody>
-                    </table>
-          
+                        <button class="btn btn-success">Update</button>
+                    </form>
+
                 </div>
             </div>
         </div>
     </div>
 </div>
+
 
 
 @endsection

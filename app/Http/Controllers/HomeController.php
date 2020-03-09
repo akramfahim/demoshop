@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Category;
 
 class HomeController extends Controller
 {
@@ -23,6 +24,9 @@ class HomeController extends Controller
      */
     public function index()
     {
+        // $categories = Category::orderBy('created_at','DESC')->get();
+
+        // return view('/home',['categories' => $categories]);
         return view('home');
     }
 }

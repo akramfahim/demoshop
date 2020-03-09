@@ -7,34 +7,24 @@ use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    
     public function index()
     {
-        $categories = Category::all();
+        $categories = Category::orderBy('created_at','DESC')->get();
 
-        return home('home')->with(['categories',$categories]);
+        return view('category.index')->with('categories',$categories);
+        
+        //return view('category.index',['categories'=>$categories]);
+
+        
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         //return view ('category.addCategory');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+    
     public function store(Request $request)
     {
         $categoryName = $request->validate([
@@ -45,9 +35,7 @@ class CategoryController extends Controller
         
 
         if($success){
-            return redirect('home')->with('msg','success');
-        }else{
-            return redirect('home')->with('msg','error');
+            return back()->with('successMessage','Category Added Successfully');
         }
 
         // $category = new Category();
@@ -56,48 +44,46 @@ class CategoryController extends Controller
 
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Category  $category
-     * @return \Illuminate\Http\Response
-     */
     public function show(Category $category)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Category  $category
-     * @return \Illuminate\Http\Response
-     */
+    
     public function edit(Category $category)
     {
-        //
+        $category = Category::find($category);
+
+        return view('category.edit',compact('category'));
+
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Category  $category
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, Category $category)
-    {
-        //
+    {   
+        // $category =category::find($category);
+
+        $request->validate([
+            'categoryName' => 'required | unique:categories'
+        ]);
+
+         // update and save this user
+         $updated = $category->update([
+            'categoryName' => $request->categoryName,
+        ]);
+
+        if($updated){
+            return redirect('category')->with('successMessage','Category Updated Successfully');
+        }else{
+            return back()->with('errorMessage','Category Can not be Deleted');
+        }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Category  $category
-     * @return \Illuminate\Http\Response
-     */
+    
     public function destroy(Category $category)
     {
-        //
+        
+        $category->delete();
+
+        return back()->with('successMessage','Category Deleted Successfully');
     }
 }
